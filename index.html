@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <style>
+        :root {
+            --bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --green: #059669;
+            --green-bg: #ecfdf5;
+            --green-light: #d1fae5;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --red-light: #fee2e2;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -6px rgba(0, 0, 0, 0.05);
+            --radius-sm: 10px;
+            --radius: 14px;
+            --radius-lg: 18px;
+            --radius-xl: 22px;
+            --transition: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #e8edf2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            max-width: 440px;
+            min-height: 100vh;
+            background: var(--bg);
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-title .icon {
+            width: 34px;
+            height: 34px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .header-subtitle {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Create Box Button */
+        .btn-create-box {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: -0.2px;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-create-box:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+        }
+        .btn-create-box .plus-icon {
+            font-size: 1.3rem;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        /* Box Card */
+        .box-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all var(--transition);
+            border: 1px solid var(--border);
+        }
+        .box-card-header {
+            padding: 14px 16px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            background: #fafbfc;
+        }
+        .box-card-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .box-card-title .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+        .btn-delete-box {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all var(--transition);
+            line-height: 1;
+        }
+        .btn-delete-box:hover,
+        .btn-delete-box:active {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .box-initial-amount {
+            padding: 12px 16px;
+            background: #f8fafc;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .box-initial-amount .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .box-initial-amount .amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            margin-top: 2px;
+        }
+        .box-initial-amount .meta {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+
+        .box-actions {
+            display: flex;
+            gap: 8px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .btn-action {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            border: 1.5px solid transparent;
+            transition: all var(--transition);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .btn-add {
+            background: var(--green-bg);
+            color: var(--green);
+            border-color: var(--green-light);
+        }
+        .btn-add:active {
+            background: #c6f6d5;
+            transform: scale(0.96);
+        }
+        .btn-deduct {
+            background: var(--red-bg);
+            color: var(--red);
+            border-color: var(--red-light);
+        }
+        .btn-deduct:active {
+            background: #fecaca;
+            transform: scale(0.96);
+        }
+
+        .box-transactions {
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 6px 10px;
+            scroll-behavior: smooth;
+        }
+        .box-transactions::-webkit-scrollbar {
+            width: 4px;
+        }
+        .box-transactions::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+        .no-transactions {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border-radius: var(--radius-sm);
+            margin: 3px 0;
+            transition: all var(--transition);
+            position: relative;
+            border: 1px solid transparent;
+        }
+        .transaction-item.add-type {
+            background: #f9fefb;
+            border-color: #e6f7ed;
+        }
+        .transaction-item.deduct-type {
+            background: #fffbfb;
+            border-color: #fde8e8;
+        }
+        .transaction-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+        .add-type .transaction-icon {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .deduct-type .transaction-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .transaction-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .transaction-category {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text);
+            letter-spacing: -0.1px;
+        }
+        .transaction-datetime {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: -0.2px;
+            flex-shrink: 0;
+        }
+        .add-type .transaction-amount {
+            color: #059669;
+        }
+        .deduct-type .transaction-amount {
+            color: #dc2626;
+        }
+        .btn-delete-trans {
+            background: none;
+            border: none;
+            color: #d1d5db;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: all var(--transition);
+            flex-shrink: 0;
+        }
+        .btn-delete-trans:hover,
+        .btn-delete-trans:active {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .box-remaining {
+            padding: 12px 16px;
+            text-align: center;
+            border-top: 1.5px solid var(--border);
+            background: #fdfdfd;
+        }
+        .box-remaining .label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .box-remaining .amount {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+        .box-remaining .amount.positive {
+            color: #059669;
+        }
+        .box-remaining .amount.negative {
+            color: #dc2626;
+        }
+        .box-remaining .amount.neutral {
+            color: var(--text);
+        }
+
+        /* Analytics Section */
+        .analytics-section {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 18px 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .analytics-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .analytics-title .icon {
+            font-size: 1.1rem;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .stat-card {
+            background: #f8fafc;
+            border-radius: var(--radius-sm);
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-value {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: -0.3px;
+            color: var(--text);
+        }
+        .stat-card .stat-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            font-weight: 600;
+        }
+        .stat-card.total .stat-value {
+            color: #4f46e5;
+        }
+        .stat-card.income .stat-value {
+            color: #059669;
+        }
+        .stat-card.expense .stat-value {
+            color: #dc2626;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+        .chart-container canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .chart-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: -0.1px;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 100;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-sheet {
+            background: #fff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 20px 20px 0 0;
+            padding: 20px 18px 28px;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-sheet {
+            transform: translateY(0);
+        }
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: #d1d5db;
+            border-radius: 10px;
+            margin: 0 auto 16px;
+        }
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all var(--transition);
+            background: #fafbfc;
+            color: var(--text);
+            letter-spacing: -0.1px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+            background: #fff;
+        }
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 36px;
+        }
+        .custom-category-input {
+            margin-top: 8px;
+            display: none;
+        }
+        .custom-category-input.show {
+            display: block;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            letter-spacing: -0.1px;
+            transition: all var(--transition);
+            margin-top: 4px;
+        }
+        .btn-submit:active {
+            transform: scale(0.97);
+            background: var(--accent-hover);
+        }
+        .btn-cancel {
+            width: 100%;
+            padding: 11px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            letter-spacing: -0.1px;
+            transition: all var(--transition);
+            margin-top: 6px;
+        }
+        .btn-cancel:active {
+            background: #f1f5f9;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 11px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 200;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+            letter-spacing: -0.1px;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .empty-state .text {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 440px) {
+            .app-wrapper {
+                max-width: 100%;
+            }
+            .modal-sheet {
+                max-width: 100%;
+                border-radius: 20px 20px 0 0;
+            }
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+            .stat-card {
+                padding: 10px 5px;
+            }
+            .stat-card .stat-value {
+                font-size: 0.85rem;
+            }
+            .box-initial-amount .amount {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <div class="header-title">
+                    <span class="icon">💰</span> Budget Tracker
+                </div>
+                <div class="header-subtitle">Track every penny</div>
+            </div>
+            <span style="font-size:0.7rem;color:var(--text-muted);font-weight:600;" id="totalBalanceMini">₹0</span>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Create Box Button -->
+            <button class="btn-create-box" onclick="openCreateBoxModal()">
+                <span class="plus-icon">+</span> Create New Money Box
+            </button>
+
+            <!-- Boxes Container -->
+            <div id="boxesContainer">
+                <div class="empty-state">
+                    <div class="icon">📦</div>
+                    <div class="text">No money boxes yet.<br>Tap the button above to create one!</div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <section class="analytics-section" id="analyticsSection">
+                <div class="analytics-title">
+                    <span class="icon">📊</span> Analytics
+                </div>
+                <div class="stats-row" id="statsRow">
+                    <div class="stat-card total">
+                        <div class="stat-value" id="statTotalBalance">₹0</div>
+                        <div class="stat-label">Total Balance</div>
+                    </div>
+                    <div class="stat-card income">
+                        <div class="stat-value" id="statTotalIncome">₹0</div>
+                        <div class="stat-label">Total Income</div>
+                    </div>
+                    <div class="stat-card expense">
+                        <div class="stat-value" id="statTotalExpense">₹0</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-label">📋 Balance by Box</div>
+                    <canvas id="barChart" height="200"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-label">🍩 Expenses by Category</div>
+                    <canvas id="doughnutChart" height="240"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Create Box Modal -->
+    <div class="modal-overlay" id="createBoxModal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">✨ Create New Money Box</div>
+            <div class="form-group">
+                <label class="form-label">Box Name / Source</label>
+                <input type="text" class="form-input" id="boxName" placeholder="e.g. Salary, Friend, Business...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Initial Amount (₹)</label>
+                <input type="number" class="form-input" id="boxInitialAmount" placeholder="e.g. 50000" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category (Where it came from)</label>
+                <select class="form-select" id="boxCategory" onchange="toggleCustomCategory('box')">
+                    <option value="Salary">Salary</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Family">Family</option>
+                    <option value="Business">Business</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Gift">Gift</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Rent Income">Rent Income</option>
+                    <option value="Custom">✨ Custom</option>
+                </select>
+                <input type="text" class="form-input custom-category-input" id="boxCustomCategory" placeholder="Enter custom category...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date & Time</label>
+                <input type="datetime-local" class="form-input" id="boxDateTime">
+            </div>
+            <button class="btn-submit" onclick="createBox()">✅ Create Box</button>
+            <button class="btn-cancel" onclick="closeModal('createBoxModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Add Money Modal -->
+    <div class="modal-overlay" id="addMoneyModal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">💚 Add Money</div>
+            <input type="hidden" id="addMoneyBoxId">
+            <div class="form-group">
+                <label class="form-label">Amount (₹)</label>
+                <input type="number" class="form-input" id="addMoneyAmount" placeholder="e.g. 5000" min="0.01" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category (Source)</label>
+                <select class="form-select" id="addMoneyCategory" onchange="toggleCustomCategory('add')">
+                    <option value="Salary">Salary</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Family">Family</option>
+                    <option value="Business">Business</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Gift">Gift</option>
+                    <option value="Rent Income">Rent Income</option>
+                    <option value="Refund">Refund</option>
+                    <option value="Custom">✨ Custom</option>
+                </select>
+                <input type="text" class="form-input custom-category-input" id="addMoneyCustomCategory" placeholder="Enter custom category...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date & Time</label>
+                <input type="datetime-local" class="form-input" id="addMoneyDateTime">
+            </div>
+            <button class="btn-submit" style="background:#059669;" onclick="addMoneyToBox()">💚 Add Money</button>
+            <button class="btn-cancel" onclick="closeModal('addMoneyModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Deduct Money Modal -->
+    <div class="modal-overlay" id="deductMoneyModal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">❤️ Deduct Money</div>
+            <input type="hidden" id="deductMoneyBoxId">
+            <div class="form-group">
+                <label class="form-label">Amount (₹)</label>
+                <input type="number" class="form-input" id="deductMoneyAmount" placeholder="e.g. 1500" min="0.01" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category (Expense Type)</label>
+                <select class="form-select" id="deductMoneyCategory" onchange="toggleCustomCategory('deduct')">
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Education">Education</option>
+                    <option value="Custom">✨ Custom</option>
+                </select>
+                <input type="text" class="form-input custom-category-input" id="deductMoneyCustomCategory" placeholder="Enter custom category...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date & Time</label>
+                <input type="datetime-local" class="form-input" id="deductMoneyDateTime">
+            </div>
+            <button class="btn-submit" style="background:#dc2626;" onclick="deductMoneyFromBox()">❤️ Deduct Money</button>
+            <button class="btn-cancel" onclick="closeModal('deductMoneyModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==================== DATA LAYER ====================
+        const STORAGE_KEY = 'budget_tracker_boxes_v2';
+
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : { boxes: [] };
+            } catch (e) {
+                return { boxes: [] };
+            }
+        }
+
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function generateId() {
+            return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        }
+
+        function getCurrentDateTimeLocal() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            const local = new Date(now.getTime() - offset * 60000);
+            return local.toISOString().slice(0, 16);
+        }
+
+        function formatDateTime(isoString) {
+            if (!isoString) return '—';
+            const d = new Date(isoString);
+            const optionsDate = { day: 'numeric', month: 'short', year: 'numeric' };
+            const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: true };
+            return d.toLocaleDateString('en-IN', optionsDate) + ' · ' + d.toLocaleTimeString('en-US', optionsTime);
+        }
+
+        function formatCurrency(amount) {
+            const abs = Math.abs(amount);
+            const formatted = abs.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            return amount < 0 ? '-₹' + formatted : '₹' + formatted;
+        }
+
+        function getBoxBalance(box) {
+            const additions = box.transactions
+                .filter(t => t.type === 'add')
+                .reduce((sum, t) => sum + parseFloat(t.amount || 0), 0);
+            const deductions = box.transactions
+                .filter(t => t.type === 'deduct')
+                .reduce((sum, t) => sum + parseFloat(t.amount || 0), 0);
+            return parseFloat(box.initialAmount || 0) + additions - deductions;
+        }
+
+        // ==================== RENDER ====================
+        function renderAll() {
+            const data = loadData();
+            renderBoxes(data);
+            renderAnalytics(data);
+            updateHeaderMiniBalance(data);
+        }
+
+        function updateHeaderMiniBalance(data) {
+            let total = 0;
+            data.boxes.forEach(box => {
+                total += getBoxBalance(box);
+            });
+            document.getElementById('totalBalanceMini').textContent = formatCurrency(total);
+        }
+
+        function renderBoxes(data) {
+            const container = document.getElementById('boxesContainer');
+            if (!data.boxes || data.boxes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📦</div>
+                        <div class="text">No money boxes yet.<br>Tap the button above to create one!</div>
+                    </div>`;
+                return;
+            }
+            let html = '';
+            data.boxes.forEach(box => {
+                const balance = getBoxBalance(box);
+                const balanceClass = balance > 0 ? 'positive' : balance < 0 ? 'negative' : 'neutral';
+                const transactionsHtml = renderTransactions(box);
+                html += `
+                <div class="box-card" data-box-id="${box.id}">
+                    <div class="box-card-header">
+                        <div class="box-card-title">
+                            <span class="dot"></span> ${escapeHtml(box.name)}
+                        </div>
+                        <button class="btn-delete-box" onclick="deleteBox('${box.id}')" title="Delete Box">🗑️</button>
+                    </div>
+                    <div class="box-initial-amount">
+                        <div class="label">Initial Amount</div>
+                        <div class="amount">${formatCurrency(parseFloat(box.initialAmount || 0))}</div>
+                        <div class="meta">${escapeHtml(box.initialCategory)} · ${formatDateTime(box.initialDateTime)}</div>
+                    </div>
+                    <div class="box-actions">
+                        <button class="btn-action btn-add" onclick="openAddMoneyModal('${box.id}')">💚 Add</button>
+                        <button class="btn-action btn-deduct" onclick="openDeductMoneyModal('${box.id}')">❤️ Deduct</button>
+                    </div>
+                    <div class="box-transactions">
+                        ${transactionsHtml || '<div class="no-transactions">No transactions yet</div>'}
+                    </div>
+                    <div class="box-remaining">
+                        <div class="label">Remaining Balance</div>
+                        <div class="amount ${balanceClass}">${formatCurrency(balance)}</div>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderTransactions(box) {
+            if (!box.transactions || box.transactions.length === 0) return '';
+            // Sort by dateTime descending (newest first)
+            const sorted = [...box.transactions].sort((a, b) => {
+                return new Date(b.dateTime || 0) - new Date(a.dateTime || 0);
+            });
+            let html = '';
+            sorted.forEach(t => {
+                const typeClass = t.type === 'add' ? 'add-type' : 'deduct-type';
+                const sign = t.type === 'add' ? '+' : '−';
+                const iconSymbol = t.type === 'add' ? '↑' : '↓';
+                html += `
+                <div class="transaction-item ${typeClass}">
+                    <div class="transaction-icon">${iconSymbol}</div>
+                    <div class="transaction-info">
+                        <div class="transaction-category">${escapeHtml(t.category || 'Unknown')}</div>
+                        <div class="transaction-datetime">${formatDateTime(t.dateTime)}</div>
+                    </div>
+                    <div class="transaction-amount">${sign} ${formatCurrency(parseFloat(t.amount || 0))}</div>
+                    <button class="btn-delete-trans" onclick="deleteTransaction('${box.id}','${t.id}')" title="Remove">✕</button>
+                </div>`;
+            });
+            return html;
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ==================== ANALYTICS ====================
+        function renderAnalytics(data) {
+            const boxes = data.boxes || [];
+            // Calculate stats
+            let totalBalance = 0;
+            let totalIncome = 0;
+            let totalExpense = 0;
+            const expenseCategories = {};
+            const boxBalances = [];
+
+            boxes.forEach(box => {
+                const balance = getBoxBalance(box);
+                totalBalance += balance;
+                totalIncome += parseFloat(box.initialAmount || 0);
+                boxBalances.push({ name: box.name, balance: balance });
+
+                (box.transactions || []).forEach(t => {
+                    if (t.type === 'add') {
+                        totalIncome += parseFloat(t.amount || 0);
+                    } else if (t.type === 'deduct') {
+                        const amt = parseFloat(t.amount || 0);
+                        totalExpense += amt;
+                        const cat = t.category || 'Unknown';
+                        expenseCategories[cat] = (expenseCategories[cat] || 0) + amt;
+                    }
+                });
+            });
+
+            document.getElementById('statTotalBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('statTotalIncome').textContent = formatCurrency(totalIncome);
+            document.getElementById('statTotalExpense').textContent = formatCurrency(totalExpense);
+
+            drawBarChart(boxBalances);
+            drawDoughnutChart(expenseCategories);
+        }
+
+        function drawBarChart(boxBalances) {
+            const canvas = document.getElementById('barChart');
+            const container = canvas.parentElement;
+            const dpr = window.devicePixelRatio || 1;
+            const rect = container.getBoundingClientRect();
+            const width = rect.width;
+            const height = 200;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, width, height);
+
+            if (boxBalances.length === 0) {
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '600 13px "Segoe UI", system-ui, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('No data yet — create a box to see charts', width / 2, height / 2);
+                return;
+            }
+
+            const padding = { top: 20, right: 20, bottom: 50, left: 55 };
+            const chartW = width - padding.left - padding.right;
+            const chartH = height - padding.top - padding.bottom;
+            const barGap = Math.max(12, chartW / (boxBalances.length * 3));
+            const barWidth = Math.min(60, (chartW - barGap * (boxBalances.length - 1)) / boxBalances.length);
+            const totalBarsWidth = barWidth * boxBalances.length + barGap * (boxBalances.length - 1);
+            const startX = padding.left + (chartW - totalBarsWidth) / 2;
+
+            const allValues = boxBalances.map(b => b.balance);
+            const maxVal = Math.max(...allValues.map(Math.abs), 1);
+            const yScale = chartH / (maxVal * 1.2);
+
+            // Zero line
+            const zeroY = padding.top + chartH / 2;
+            // Adjust so that 0 is in middle if mix of pos/neg, or at bottom if all positive
+            const hasNegative = allValues.some(v => v < 0);
+            const hasPositive = allValues.some(v => v > 0);
+            let baseY;
+            if (hasNegative && hasPositive) {
+                baseY = padding.top + (maxVal * 1.2) * yScale - (maxVal * yScale);
+                // Center zero
+                const totalRange = maxVal * 1.2 * 2;
+                const scaleAdj = chartH / totalRange;
+                baseY = padding.top + maxVal * 1.2 * scaleAdj;
+            } else if (hasNegative) {
+                baseY = padding.top;
+            } else {
+                baseY = padding.top + chartH;
+            }
+
+            // Draw grid lines
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding.top + (chartH / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '10px "Segoe UI", system-ui, sans-serif';
+                ctx.textAlign = 'right';
+                const val = hasNegative && hasPositive ?
+                    (maxVal * 1.2 - (maxVal * 1.2 * 2 / 4) * i) :
+                    hasNegative ? (-maxVal * 1.2 / 4 * i) :
+                    (maxVal * 1.2 - (maxVal * 1.2 / 4) * i);
+                ctx.fillText(Math.round(val), padding.left - 6, y + 4);
+            }
+
+            // Draw bars
+            boxBalances.forEach((item, i) => {
+                const x = startX + i * (barWidth + barGap);
+                const barH = Math.abs(item.balance) * yScale;
+                const y = item.balance >= 0 ? baseY - barH : baseY;
+                const color = item.balance >= 0 ? '#059669' : '#dc2626';
+
+                // Bar with rounded top
+                const radius = Math.min(6, barWidth / 2);
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                if (item.balance >= 0) {
+                    ctx.moveTo(x, y + barH);
+                    ctx.lineTo(x, y + radius);
+                    ctx.quadraticCurveTo(x, y, x + radius, y);
+                    ctx.lineTo(x + barWidth - radius, y);
+                    ctx.quadraticCurveTo(x + barWidth, y, x + barWidth, y + radius);
+                    ctx.lineTo(x + barWidth, y + barH);
+                } else {
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y + barH - radius);
+                    ctx.quadraticCurveTo(x, y + barH, x + radius, y + barH);
+                    ctx.lineTo(x + barWidth - radius, y + barH);
+                    ctx.quadraticCurveTo(x + barWidth, y + barH, x + barWidth, y + barH - radius);
+                    ctx.lineTo(x + barWidth, y);
+                }
+                ctx.closePath();
+                ctx.fill();
+
+                // Value on top/bottom
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 10px "Segoe UI", system-ui, sans-serif';
+                ctx.textAlign = 'center';
+                const valY = item.balance >= 0 ? y - 8 : y + barH + 16;
+                ctx.fillText(formatCurrency(item.balance), x + barWidth / 2, valY);
+
+                // Label below
+                ctx.fillStyle = '#64748b';
+                ctx.font = '10px "Segoe UI", system-ui, sans-serif';
+                ctx.fillText(item.name.length > 10 ? item.name.slice(0, 10) + '…' : item.name, x + barWidth /
+                    2, padding.top + chartH + 18);
+            });
+
+            // Zero line
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(padding.left, baseY);
+            ctx.lineTo(width - padding.right, baseY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawDoughnutChart(expenseCategories) {
+            const canvas = document.getElementById('doughnutChart');
+            const container = canvas.parentElement;
+            const dpr = window.devicePixelRatio || 1;
+            const rect = container.getBoundingClientRect();
+            const size = Math.min(rect.width, 280);
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, size, size);
+
+            const entries = Object.entries(expenseCategories).sort((a, b) => b[1] - a[1]);
+            const total = entries.reduce((sum, e) => sum + e[1], 0);
+
+            if (entries.length === 0 || total === 0) {
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '600 13px "Segoe UI", system-ui, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('No expenses yet', size / 2, size / 2);
+                return;
+            }
+
+            const colors = [
+                '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16',
+                '#22c55e', '#14b8a6', '#06b6d4', '#3b82f6', '#6366f1',
+                '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e'
+            ];
+
+            const cx = size / 2;
+            const cy = size / 2;
+            const outerR = size * 0.38;
+            const innerR = size * 0.22;
+            let startAngle = -Math.PI / 2;
+
+            entries.forEach((entry, i) => {
+                const sliceAngle = (entry[1] / total) * Math.PI * 2;
+                const color = colors[i % colors.length];
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, outerR, startAngle, startAngle + sliceAngle);
+                ctx.arc(cx, cy, innerR, startAngle + sliceAngle, startAngle, true);
+                ctx.closePath();
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                // Label on slice if big enough
+                if (sliceAngle > 0.35) {
+                    const midAngle = startAngle + sliceAngle / 2;
+                    const labelR = (outerR + innerR) / 2;
+                    const lx = cx + Math.cos(midAngle) * labelR;
+                    const ly = cy + Math.sin(midAngle) * labelR;
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 9px "Segoe UI", system-ui, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    const pct = Math.round((entry[1] / total) * 100);
+                    if (pct >= 8) {
+                        ctx.fillText(pct + '%', lx, ly);
+                    }
+                }
+
+                startAngle += sliceAngle;
+            });
+
+            // Center text
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 14px "Segoe UI", system-ui, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('Total', cx, cy - 8);
+            ctx.fillText(formatCurrency(total), cx, cy + 12);
+
+            // Legend below the chart
+            const legendY = size + 10;
+            // We draw legend outside canvas via HTML
+            const legendContainer = document.getElementById('doughnutLegend') || createLegendContainer();
+            legendContainer.innerHTML = '';
+            entries.forEach((entry, i) => {
+                const color = colors[i % colors.length];
+                const pct = Math.round((entry[1] / total) * 100);
+                const item = document.createElement('span');
+                item.style.cssText = `
+                    display:inline-flex;align-items:center;gap:5px;margin:3px 8px;
+                    font-size:0.7rem;font-weight:500;color:#475569;white-space:nowrap;
+                `;
+                item.innerHTML =
+                    `<span style="width:10px;height:10px;border-radius:3px;background:${color};flex-shrink:0;"></span>${escapeHtml(entry[0])} (${pct}%)`;
+                legendContainer.appendChild(item);
+            });
+            legendContainer.style.display = 'flex';
+            legendContainer.style.flexWrap = 'wrap';
+            legendContainer.style.justifyContent = 'center';
+            legendContainer.style.padding = '8px 0';
+        }
+
+        function createLegendContainer() {
+            const canvas = document.getElementById('doughnutChart');
+            const container = canvas.parentElement;
+            const legend = document.createElement('div');
+            legend.id = 'doughnutLegend';
+            legend.style.cssText =
+                'display:flex;flex-wrap:wrap;justify-content:center;padding:8px 0;gap:2px;margin-top:4px;';
+            container.appendChild(legend);
+            return legend;
+        }
+
+        // ==================== MODALS ====================
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+            // Hide all custom category inputs
+            document.querySelectorAll('.custom-category-input').forEach(el => el.classList.remove('show'));
+        }
+
+        function openCreateBoxModal() {
+            document.getElementById('boxDateTime').value = getCurrentDateTimeLocal();
+            document.getElementById('boxName').value = '';
+            document.getElementById('boxInitialAmount').value = '';
+            document.getElementById('boxCategory').value = 'Salary';
+            document.getElementById('boxCustomCategory').value = '';
+            document.getElementById('boxCustomCategory').classList.remove('show');
+            openModal('createBoxModal');
+        }
+
+        function openAddMoneyModal(boxId) {
+            document.getElementById('addMoneyBoxId').value = boxId;
+            document.getElementById('addMoneyAmount').value = '';
+            document.getElementById('addMoneyCategory').value = 'Salary';
+            document.getElementById('addMoneyCustomCategory').value = '';
+            document.getElementById('addMoneyCustomCategory').classList.remove('show');
+            document.getElementById('addMoneyDateTime').value = getCurrentDateTimeLocal();
+            openModal('addMoneyModal');
+        }
+
+        function openDeductMoneyModal(boxId) {
+            document.getElementById('deductMoneyBoxId').value = boxId;
+            document.getElementById('deductMoneyAmount').value = '';
+            document.getElementById('deductMoneyCategory').value = 'Food';
+            document.getElementById('deductMoneyCustomCategory').value = '';
+            document.getElementById('deductMoneyCustomCategory').classList.remove('show');
+            document.getElementById('deductMoneyDateTime').value = getCurrentDateTimeLocal();
+            openModal('deductMoneyModal');
+        }
+
+        function toggleCustomCategory(prefix) {
+            let selectEl, inputEl;
+            if (prefix === 'box') {
+                selectEl = document.getElementById('boxCategory');
+                inputEl = document.getElementById('boxCustomCategory');
+            } else if (prefix === 'add') {
+                selectEl = document.getElementById('addMoneyCategory');
+                inputEl = document.getElementById('addMoneyCustomCategory');
+            } else if (prefix === 'deduct') {
+                selectEl = document.getElementById('deductMoneyCategory');
+                inputEl = document.getElementById('deductMoneyCustomCategory');
+            }
+            if (selectEl && inputEl) {
+                if (selectEl.value === 'Custom') {
+                    inputEl.classList.add('show');
+                    inputEl.focus();
+                } else {
+                    inputEl.classList.remove('show');
+                    inputEl.value = '';
+                }
+            }
+        }
+
+        // Close modals on overlay click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+                document.querySelectorAll('.custom-category-input').forEach(el => el.classList.remove(
+                'show'));
+            }
+        });
+
+        // Close modals on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+                document.querySelectorAll('.custom-category-input').forEach(el => el.classList.remove(
+                'show'));
+            }
+        });
+
+        // ==================== ACTIONS ====================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        function createBox() {
+            const name = document.getElementById('boxName').value.trim();
+            const initialAmount = parseFloat(document.getElementById('boxInitialAmount').value);
+            const categorySelect = document.getElementById('boxCategory').value;
+            const customCategory = document.getElementById('boxCustomCategory').value.trim();
+            const dateTime = document.getElementById('boxDateTime').value;
+
+            if (!name) return showToast('⚠️ Please enter a box name');
+            if (isNaN(initialAmount) || initialAmount < 0) return showToast('⚠️ Please enter a valid initial amount');
+            if (!dateTime) return showToast('⚠️ Please select date & time');
+
+            const finalCategory = categorySelect === 'Custom' ? (customCategory || 'Custom') : categorySelect;
+            if (categorySelect === 'Custom' && !customCategory) return showToast('⚠️ Please enter a custom category');
+
+            const data = loadData();
+            const newBox = {
+                id: generateId(),
+                name: name,
+                initialAmount: initialAmount,
+                initialCategory: finalCategory,
+                initialDateTime: dateTime,
+                transactions: [],
+            };
+            data.boxes.push(newBox);
+            saveData(data);
+            closeModal('createBoxModal');
+            renderAll();
+            showToast('✅ Box created successfully!');
+        }
+
+        function addMoneyToBox() {
+            const boxId = document.getElementById('addMoneyBoxId').value;
+            const amount = parseFloat(document.getElementById('addMoneyAmount').value);
+            const categorySelect = document.getElementById('addMoneyCategory').value;
+            const customCategory = document.getElementById('addMoneyCustomCategory').value.trim();
+            const dateTime = document.getElementById('addMoneyDateTime').value;
+
+            if (isNaN(amount) || amount <= 0) return showToast('⚠️ Please enter a valid amount');
+            if (!dateTime) return showToast('⚠️ Please select date & time');
+
+            const finalCategory = categorySelect === 'Custom' ? (customCategory || 'Custom') : categorySelect;
+            if (categorySelect === 'Custom' && !customCategory) return showToast('⚠️ Please enter a custom category');
+
+            const data = loadData();
+            const box = data.boxes.find(b => b.id === boxId);
+            if (!box) return showToast('⚠️ Box not found');
+
+            box.transactions.push({
+                id: generateId(),
+                type: 'add',
+                amount: amount,
+                category: finalCategory,
+                dateTime: dateTime,
+            });
+            saveData(data);
+            closeModal('addMoneyModal');
+            renderAll();
+            showToast('💚 Money added!');
+        }
+
+        function deductMoneyFromBox() {
+            const boxId = document.getElementById('deductMoneyBoxId').value;
+            const amount = parseFloat(document.getElementById('deductMoneyAmount').value);
+            const categorySelect = document.getElementById('deductMoneyCategory').value;
+            const customCategory = document.getElementById('deductMoneyCustomCategory').value.trim();
+            const dateTime = document.getElementById('deductMoneyDateTime').value;
+
+            if (isNaN(amount) || amount <= 0) return showToast('⚠️ Please enter a valid amount');
+            if (!dateTime) return showToast('⚠️ Please select date & time');
+
+            const finalCategory = categorySelect === 'Custom' ? (customCategory || 'Custom') : categorySelect;
+            if (categorySelect === 'Custom' && !customCategory) return showToast('⚠️ Please enter a custom category');
+
+            const data = loadData();
+            const box = data.boxes.find(b => b.id === boxId);
+            if (!box) return showToast('⚠️ Box not found');
+
+            const currentBalance = getBoxBalance(box);
+            if (amount > currentBalance) {
+                return showToast('⚠️ Insufficient balance! Current: ' + formatCurrency(currentBalance));
+            }
+
+            box.transactions.push({
+                id: generateId(),
+                type: 'deduct',
+                amount: amount,
+                category: finalCategory,
+                dateTime: dateTime,
+            });
+            saveData(data);
+            closeModal('deductMoneyModal');
+            renderAll();
+            showToast('❤️ Money deducted!');
+        }
+
+        function deleteTransaction(boxId, transactionId) {
+            if (!confirm('Remove this transaction?')) return;
+            const data = loadData();
+            const box = data.boxes.find(b => b.id === boxId);
+            if (!box) return;
+            box.transactions = box.transactions.filter(t => t.id !== transactionId);
+            saveData(data);
+            renderAll();
+            showToast('🗑️ Transaction removed');
+        }
+
+        function deleteBox(boxId) {
+            if (!confirm('Delete this entire money box? All its data will be lost.')) return;
+            const data = loadData();
+            data.boxes = data.boxes.filter(b => b.id !== boxId);
+            saveData(data);
+            renderAll();
+            showToast('🗑️ Box deleted');
+        }
+
+        // ==================== RESIZE HANDLER ====================
+        let resizeDebounce;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeDebounce);
+            resizeDebounce = setTimeout(() => {
+                const data = loadData();
+                renderAnalytics(data);
+            }, 300);
+        });
+
+        // ==================== INIT ====================
+        function init() {
+            renderAll();
+            // Set default datetime values
+            const now = getCurrentDateTimeLocal();
+            document.getElementById('boxDateTime').value = now;
+            document.getElementById('addMoneyDateTime').value = now;
+            document.getElementById('deductMoneyDateTime').value = now;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Also handle orientation change for mobile
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                const data = loadData();
+                renderAnalytics(data);
+            }, 400);
+        });
+
+        console.log('💰 Budget Tracker ready!');
+        console.log('📱 Optimized for mobile screens');
+        console.log('💾 All data stored in your browser (localStorage)');
+        console.log('📊 Features: Multiple boxes, Add/Deduct, Categories, Charts');
+    </script>
+</body>
+</html>
