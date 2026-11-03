@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>User Dashboard — PassGuard</title>
+  <link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><img src="assets/logo.svg" alt=""><span>PassGuard</span></div>
+    <div class="nav-label">Menu</div>
+    <nav class="nav">
+      <a class="active" href="dashboard.html">⌂ <span>Dashboard</span></a>
+      <a href="change-password.html">🔑 <span>Change Password</span></a>
+    </nav>
+    <div class="sidebar-footer nav"><button data-logout>↪ <span>Logout</span></button></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title">
+        <h1>Welcome, <span id="welcomeName">User</span></h1>
+        <p>Here is your account and password security status.</p>
+      </div>
+      <div class="user-pill">
+        <div class="avatar" id="avatarText">U</div>
+        <div class="user-text"><b id="pillName">User</b><small id="pillUser">@user</small></div>
+      </div>
+    </div>
+
+    <section class="cards">
+      <div class="stat-card"><div class="label">Password Status</div><div style="margin-top:12px"><span id="passwordStatusBadge" class="status-badge status-active">Active</span></div><div class="hint">Current security state</div></div>
+      <div class="stat-card"><div class="label">Days Remaining</div><div class="value" id="remainingDays">0</div><div class="hint">Until password expiry</div></div>
+      <div class="stat-card"><div class="label">Password Created</div><div class="value" style="font-size:20px" id="passwordCreated">—</div><div class="hint">Last password update</div></div>
+      <div class="stat-card"><div class="label">Expiry Date</div><div class="value" style="font-size:20px" id="passwordExpiry">—</div><div class="hint">Required change date</div></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="panel">
+        <h3>Password Expiry Status</h3>
+        <div class="muted" style="font-size:13px">Remaining password validity</div>
+        <div class="expiry-big"><span id="remainingDaysBig">0</span><span style="font-size:16px;color:#667085;font-weight:600"> days</span></div>
+        <div class="progress-track"><div class="progress-bar" id="expiryProgress"></div></div>
+        <div class="section-gap" id="expiryNotice"></div>
+        <a href="change-password.html" class="primary-btn" style="display:inline-block;width:auto;margin-top:18px">Change Password</a>
+      </div>
+
+      <div class="panel">
+        <h3>User Information</h3>
+        <div class="info-list">
+          <div class="info-row"><span>Full Name</span><b id="fullName">—</b></div>
+          <div class="info-row"><span>Username</span><b id="username">—</b></div>
+          <div class="info-row"><span>Email</span><b id="email">—</b></div>
+          <div class="info-row"><span>Account Status</span><b id="accountStatus">—</b></div>
+          <div class="info-row"><span>Registered On</span><b id="createdAt">—</b></div>
+          <div class="info-row"><span>Password Status</span><b id="statusLabel">—</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">PassGuard stores demo data only in this browser.</div>
+  </main>
+</div>
+<script src="js/utils.js"></script><script src="js/dashboard.js"></script>
+</body>
+</html>

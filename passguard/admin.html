@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Admin Dashboard — PassGuard</title>
+  <link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><img src="assets/logo.svg" alt=""><span>PassGuard</span></div>
+    <div class="nav-label">Admin</div>
+    <nav class="nav">
+      <a class="active" href="admin.html">▦ <span>Dashboard</span></a>
+      <a href="#users">👥 <span>User Management</span></a>
+      <a href="#policy">⚙ <span>Password Policy</span></a>
+    </nav>
+    <div class="sidebar-footer nav"><button data-logout>↪ <span>Logout</span></button></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title"><h1>Admin Dashboard</h1><p>Monitor users, account activity and password expiry status.</p></div>
+      <div class="user-pill">
+        <div class="avatar" id="avatarText">A</div>
+        <div class="user-text"><b id="pillName">Administrator</b><small id="pillUser">Administrator</small></div>
+      </div>
+    </div>
+
+    <section class="cards">
+      <div class="stat-card"><div class="label">Total Users</div><div class="value" id="totalUsers">0</div><div class="hint">Registered accounts</div></div>
+      <div class="stat-card"><div class="label">Active</div><div class="value" id="activeUsers">0</div><div class="hint">Healthy passwords</div></div>
+      <div class="stat-card"><div class="label">Expiring Soon</div><div class="value" id="warningUsers">0</div><div class="hint">Need attention</div></div>
+      <div class="stat-card"><div class="label">Expired</div><div class="value" id="expiredUsers">0</div><div class="hint">Password change required</div></div>
+    </section>
+
+    <section class="panel" id="users">
+      <h3>User Management</h3>
+      <div class="toolbar">
+        <input id="searchUser" placeholder="Search name, username or email">
+        <select id="statusFilter">
+          <option value="all">All statuses</option>
+          <option value="active">Active</option>
+          <option value="warning">Expiring Soon</option>
+          <option value="expired">Expired</option>
+          <option value="inactive">Inactive Account</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>User</th><th>Email</th><th>Status</th><th>Days Left</th><th>Expiry</th><th>Registered</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="userRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel section-gap" id="policy">
+      <h3>Password Policy</h3>
+      <p class="muted" style="font-size:13px">These values apply when a new user registers or when an existing user changes their password.</p>
+      <div id="settingsMessage" class="message hidden"></div>
+      <form id="settingsForm" class="two-col">
+        <div class="field">
+          <label>Password Validity (days)</label>
+          <input id="validityDays" type="number" min="1" max="365" required>
+        </div>
+        <div class="field">
+          <label>Expiry Warning (days)</label>
+          <input id="warningDays" type="number" min="1" max="60" required>
+        </div>
+        <div><button class="primary-btn" type="submit" style="width:auto">Save Policy</button></div>
+      </form>
+    </section>
+
+    <div class="footer-note">Admin demo data is stored locally in this browser only.</div>
+  </main>
+</div>
+
+<div class="modal-backdrop hidden" id="userModal">
+  <div class="modal">
+    <h3>User Details</h3>
+    <div id="modalContent"></div>
+    <div class="modal-actions"><button class="secondary-btn" id="closeModal">Close</button></div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script><script src="js/admin.js"></script>
+</body>
+</html>

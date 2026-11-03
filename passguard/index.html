@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>PassGuard — Password Expiry Management</title>
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-visual">
+      <div class="brand"><img src="assets/logo.svg" alt=""><span>PassGuard</span></div>
+      <div class="auth-copy">
+        <h1>Smarter password expiry management.</h1>
+        <p>Track password age, receive expiry warnings and keep user accounts under control with a simple browser-based security dashboard.</p>
+        <div class="feature-row">
+          <div class="feature-chip"><b>Password Tracking</b><span>Automatic creation and expiry dates</span></div>
+          <div class="feature-chip"><b>Expiry Alerts</b><span>Warnings before passwords expire</span></div>
+          <div class="feature-chip"><b>Admin Control</b><span>Manage user account status centrally</span></div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#94a3b8">Academic mini-project • HTML • CSS • JavaScript • LocalStorage</div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <h2>Welcome to PassGuard</h2>
+        <p class="sub">Sign in to continue or create a new account.</p>
+
+        <div class="tabs">
+          <button class="tab-btn active" id="loginTab" type="button">Login</button>
+          <button class="tab-btn" id="registerTab" type="button">Register</button>
+        </div>
+
+        <div id="authMessage" class="message hidden"></div>
+
+        <form id="loginForm" class="form-grid">
+          <div class="field">
+            <label for="loginUsername">Username</label>
+            <input id="loginUsername" autocomplete="username" placeholder="Enter your username" required>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+              <button class="eye-btn" type="button" onclick="PG.togglePassword(this)">Show</button>
+            </div>
+          </div>
+          <button class="primary-btn" type="submit">Sign In</button>
+          <div style="text-align:center;font-size:13px;color:#667085">
+            New here? <a href="#" data-go-register style="color:#4f46e5;font-weight:700">Create an account</a>
+          </div>
+        </form>
+
+        <form id="registerForm" class="form-grid hidden">
+          <div class="two-col">
+            <div class="field">
+              <label for="regName">Full Name</label>
+              <input id="regName" placeholder="Your full name" required>
+            </div>
+            <div class="field">
+              <label for="regUsername">Username</label>
+              <input id="regUsername" placeholder="Choose username" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="regEmail">Email Address</label>
+            <input id="regEmail" type="email" placeholder="name@example.com" required>
+          </div>
+          <div class="field">
+            <label for="regPassword">Password</label>
+            <div class="password-wrap">
+              <input id="regPassword" type="password" placeholder="Create a strong password" required>
+              <button class="eye-btn" type="button" onclick="PG.togglePassword(this)">Show</button>
+            </div>
+            <div class="password-strength">
+              <div class="strength-track"><div class="strength-bar" id="strengthBar"></div></div>
+              <div class="strength-label" id="strengthLabel">Use 8+ characters with upper, lower, number and symbol.</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="regConfirm">Confirm Password</label>
+            <div class="password-wrap">
+              <input id="regConfirm" type="password" placeholder="Repeat password" required>
+              <button class="eye-btn" type="button" onclick="PG.togglePassword(this)">Show</button>
+            </div>
+          </div>
+          <button class="primary-btn" type="submit">Create Account</button>
+        </form>
+
+        <div class="demo-note">
+          <b>Admin demo:</b> username <b>admin</b> &nbsp;•&nbsp; password <b>Admin@123</b><br>
+          New user passwords expire after 30 days by default.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
