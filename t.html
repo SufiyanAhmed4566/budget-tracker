@@ -8,6 +8,13 @@
 <style>
 :root{--bg:#f3f6fc;--white:#fff;--ink:#152037;--muted:#77849b;--line:#e7ebf2;--blue:#3d70f4;--green:#0abb79;--red:#ec4666;--shadow:0 8px 26px #19264a0a;--radius:22px;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{min-height:100%;scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--ink);min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #91adfb;outline-offset:2px}button:disabled{opacity:.52;cursor:not-allowed}.app{width:100%;max-width:540px;min-height:100dvh;margin:0 auto;padding-bottom:calc(115px + env(safe-area-inset-bottom));position:relative}.header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 17px;background:#f3f6fcf2;border-bottom:1px solid #e8edf4}.logo{display:flex;gap:10px;align-items:center;min-width:0}.logo-icon{width:40px;height:40px;border-radius:13px;background:linear-gradient(145deg,#3a6ded,#73a8ff);display:grid;place-items:center;color:white;font-weight:800;font-size:23px;box-shadow:0 6px 13px #3971e532}.logo-title{font-size:22px;letter-spacing:-.7px;font-weight:800}.header-right{display:flex;gap:7px;align-items:center;min-width:0}.balance-pill{background:white;border:1px solid var(--line);box-shadow:0 2px 8px #19264a0a;border-radius:30px;padding:9px 11px;font-size:13px;font-weight:800;white-space:nowrap}.dot{display:inline-block;width:9px;height:9px;background:var(--green);border-radius:50%;vertical-align:middle;margin-right:6px}.main-content{padding:18px 16px 4px;overflow:visible}.section{display:none}.section.active{display:block}.intro{display:flex;align-items:center;justify-content:space-between;margin:0 0 13px;gap:10px}.intro h1{margin:0;font-size:21px;letter-spacing:-.5px}.intro p{margin:4px 0 0;color:var(--muted);font-size:12px}.small-ghost{background:white;border:1px solid var(--line);border-radius:11px;color:var(--ink);padding:10px 12px;font-size:12px;font-weight:750}.btn{background:var(--blue);color:white;border:0;border-radius:14px;padding:14px 15px;min-height:46px;font-size:14px;font-weight:750;box-shadow:0 5px 14px #3670ef28}.btn.full{width:100%}.btn.ghost{background:white;color:var(--blue);border:1px solid #cedbfd;box-shadow:none}.btn.muted{background:#eef2f9;color:#526078;box-shadow:none}.btn:active,.small-ghost:active{transform:scale(.985)}.new-button{margin-bottom:19px;display:block;width:100%}.box-card,.note-card,.chart-box,.insight-card{background:var(--white);border:1px solid #e8edf4;box-shadow:var(--shadow);border-radius:var(--radius)}.box-card{margin-bottom:17px;overflow:hidden}.box-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:17px 15px 14px}.box-head-main{flex:1;min-width:0}.box-title{font-size:17px;font-weight:800;display:flex;align-items:flex-start;gap:9px;overflow-wrap:anywhere;word-break:break-word;line-height:1.25}.box-mark{width:12px;height:12px;flex:none;margin-top:4px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #3d70f41c}.box-meta{margin-top:6px;font-size:11px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}.box-description{font-size:12px;color:#556178;line-height:1.5;margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}.box-tools{display:flex;flex:none;gap:2px}.icon-btn{padding:7px;min-width:32px;min-height:32px;display:grid;place-items:center;background:transparent;border:0;border-radius:9px;color:#94a0af;font-size:18px}.icon-btn:active{background:#f0f3f8}.icon-btn.download{color:var(--blue)}.box-money{border-block:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 17px}.box-money .initial{font-size:12px;color:#66738b}.box-money .initial strong{color:var(--ink)}.balance{font-size:25px;font-weight:850;letter-spacing:-.8px;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}.action-row{display:flex;gap:10px;padding:13px 15px}.action-row button{flex:1;min-height:44px;border:0;border-radius:28px;font-size:13px;font-weight:800}.add-btn{background:#eafaf1;color:#08ad69}.deduct-btn{background:#fff0f3;color:#e63b5a}.tx-heading{display:flex;justify-content:space-between;align-items:center;gap:7px;padding:4px 17px 9px;color:#8090a7;font-size:11px;font-weight:700}.transactions{padding:0 12px 12px;overflow:visible;max-height:none}.tx{display:flex;align-items:flex-start;gap:9px;border-radius:15px;margin-bottom:5px;padding:13px 9px;min-width:0}.tx.add{background:#f5fcf8}.tx.deduct{background:#fff7f8}.tx-icon{height:30px;width:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:850;background:#d8f7e6;color:#08b66c}.tx.deduct .tx-icon{background:#fce1e4;color:#e53e5d}.tx-info{flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-word}.tx-category{font-size:13px;line-height:1.4;font-weight:800;overflow-wrap:anywhere;white-space:normal}.tx-subcategory,.tx-description{font-size:12px;color:#536179;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.45;margin-top:2px}.tx-date{font-size:10px;color:#98a4b4;margin-top:4px}.tx-side{display:flex;align-items:center;gap:2px;max-width:43%;flex:none}.tx-amount{font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}.tx.add .tx-amount{color:var(--green)}.tx.deduct .tx-amount{color:var(--red)}.tx-side .icon-btn{font-size:15px;min-width:27px;padding:3px}.show-more{width:100%;background:#f4f7fd;border:0;border-radius:11px;padding:10px;font-size:12px;font-weight:800;color:var(--blue)}.empty{padding:28px 18px;text-align:center;background:white;border-radius:19px;color:var(--muted);line-height:1.7;font-size:13px}.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:100;width:min(100%,540px);display:flex;align-items:center;justify-content:space-around;padding:10px 12px calc(12px + env(safe-area-inset-bottom));background:#fffffffa;border-top:1px solid var(--line);box-shadow:0 -5px 25px #1b2f5d13}.nav-item{background:transparent;border:0;border-radius:13px;min-width:79px;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8794a8;font-size:11px;font-weight:800;padding:5px 13px}.nav-item.active{background:#edf3ff;color:var(--blue)}.nav-icon{font-size:21px;line-height:1.2}.note-card{padding:15px;margin-bottom:13px}.note-head{display:flex;gap:9px;align-items:center}.note-title{width:100%;min-width:0;font-size:15px;font-weight:800;border:0;padding:10px 0;background:transparent}.note-body{display:block;width:100%;min-height:120px;resize:vertical;background:#f9fbff;border:1px solid #e5eafa;border-radius:12px;padding:12px;margin-top:8px;color:var(--ink);font-size:13px;line-height:1.65}.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}.stat-card{background:white;border:1px solid var(--line);border-radius:17px;padding:15px 11px;min-width:0}.stat-value{font-size:22px;font-weight:850;letter-spacing:-.5px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.stat-label{font-size:10px;color:var(--muted);font-weight:750;letter-spacing:.6px;text-transform:uppercase;margin-top:6px}.period-selector{display:flex;gap:7px;margin:0 0 14px}.period-btn{flex:1;min-width:0;background:white;border:1px solid var(--line);color:#617086;border-radius:25px;min-height:42px;font-weight:750;font-size:12px}.period-btn.active{background:var(--blue);color:white;border-color:var(--blue);box-shadow:0 5px 13px #3d70f428}.chart-box{padding:17px 14px 16px;margin-bottom:14px;overflow:hidden}.chart-box h3{font-size:14px;font-weight:850;margin:0 0 5px;display:flex;align-items:center;gap:7px}.chart-caption{margin:0 0 13px;color:var(--muted);font-size:11px;line-height:1.5}.chart-content{width:100%;min-width:0}.chart-content svg{display:block;width:100%;height:auto;overflow:visible}.chart-empty{padding:40px 8px;color:var(--muted);text-align:center;font-size:13px}.chart-legend{display:grid;gap:8px;margin-top:10px}.legend-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;gap:9px;font-size:12px}.legend-dot{width:10px;height:10px;border-radius:3px}.legend-name{min-width:0;overflow-wrap:anywhere;color:#465570}.legend-value{font-weight:800;font-variant-numeric:tabular-nums}.mini-progress{grid-column:2/-1;height:5px;border-radius:5px;background:#edf1f7;overflow:hidden}.mini-progress>span{display:block;height:100%;border-radius:5px}.insight-card{padding:14px 15px;margin-bottom:16px}.insight-card h3{font-size:13px;margin:0 0 9px}.insight-card p{color:#5d6b81;line-height:1.65;font-size:12px;margin:4px 0}.insight-card strong{color:var(--ink)}.modal-overlay{position:fixed;inset:0;z-index:200;background:#0b183179;display:none;justify-content:center;align-items:flex-end}.modal-overlay.active{display:flex}.modal-sheet{background:#fff;width:100%;max-width:540px;max-height:min(92dvh,850px);overflow-y:auto;overscroll-behavior:contain;border-radius:24px 24px 0 0;padding:13px 18px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -12px 35px #0002}.modal-handle{width:43px;height:5px;border-radius:5px;background:#dbe0e9;margin:0 auto 12px}.modal-title{font-size:20px;font-weight:850;margin:0 0 13px}.form-label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#697791;margin:12px 0 5px}.form-control{width:100%;border:1px solid #dfe6f0;border-radius:12px;background:#f8faff;padding:12px 13px;font-size:15px;color:var(--ink);min-height:45px;outline:0}.form-control:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px #3d70f41a}.form-control.textarea{min-height:76px;resize:vertical;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}.form-actions{display:grid;gap:9px;margin-top:17px}.help-text{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px}.field-hidden{display:none!important}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom));background:#1b293d;color:white;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:750;max-width:90%;z-index:260;box-shadow:0 6px 19px #0002;display:none}.toast.visible{display:block}.backup-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}.backup-actions button{flex:1}.filter-label{font-size:12px;color:var(--muted);margin:0 0 10px}.footnote{font-size:11px;line-height:1.65;color:#8794a8;margin:4px 0 16px;padding-inline:3px}
+/* Added Spending view: distribute four navigation items without overflow. */
+.bottom-nav .nav-item{flex:1;min-width:0;padding-inline:5px}
+.spending-range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.spending-range>div{min-width:0}
+.spending-total{font-size:29px;font-weight:850;letter-spacing:-.8px;color:var(--red);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.spending-detail{color:var(--muted);font-size:11px;margin-top:5px;line-height:1.55}
+.spending-hint{font-size:11px;color:var(--muted);line-height:1.6;margin:10px 0 0}
 @media(max-width:360px){.main-content{padding-inline:10px}.header{padding-inline:10px}.logo-title{font-size:18px}.balance-pill{font-size:11px;padding:7px}.box-head{padding-inline:11px}.box-money{padding-inline:12px}.tx{gap:6px;padding-inline:7px}.tx-amount{font-size:12px}.stat-value{font-size:19px}.nav-item{min-width:70px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:0s!important}}
 </style>
@@ -33,9 +40,39 @@
       <div class="insight-card" id="insights"></div>
       <div class="backup-actions"><button class="small-ghost" id="backupStatsBtn">⇩ Download backup</button><button class="small-ghost" id="restoreBtn">⇧ Restore backup</button></div>
     </section>
+    <!-- New independent spending-analysis view; existing screens are unchanged. -->
+    <section id="spendingSection" class="section">
+      <div class="intro"><div><h1>Category Spending</h1><p>See exactly where your money goes</p></div></div>
+      <div class="chart-box">
+        <h3>🔎 Filter your expenses</h3>
+        <label class="form-label" for="spendingCategory">Main category</label>
+        <select class="form-control" id="spendingCategory"><option value="__all__">All Categories</option></select>
+        <label class="form-label" for="spendingSubcategory">Subcategory</label>
+        <select class="form-control" id="spendingSubcategory"><option value="__all__">All Subcategories</option></select>
+        <label class="form-label" for="spendingPeriod">Time period</label>
+        <select class="form-control" id="spendingPeriod">
+          <option value="week">This Week (Mon–Sun)</option>
+          <option value="month">This Month</option>
+          <option value="lastWeek">Last Week</option>
+          <option value="lastMonth">Last Month</option>
+          <option value="last7">Last 7 Days</option>
+          <option value="last30">Last 30 Days</option>
+          <option value="today">Today</option>
+          <option value="year">This Year</option>
+          <option value="all">All Time</option>
+          <option value="custom">Custom Date Range</option>
+        </select>
+        <div class="spending-range field-hidden" id="spendingCustomRange">
+          <div><label class="form-label" for="spendingDateFrom">From date</label><input id="spendingDateFrom" class="form-control" type="date"></div>
+          <div><label class="form-label" for="spendingDateTo">To date (inclusive)</label><input id="spendingDateTo" class="form-control" type="date"></div>
+        </div>
+        <p class="spending-hint">Counts only Deduct entries from all money boxes. Income and opening balances are excluded.</p>
+      </div>
+      <div id="spendingResults" aria-live="polite"></div>
+    </section>
   </div>
 </div>
-<nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" data-tab="budget"><span class="nav-icon">▣</span>Budget</button><button class="nav-item" data-tab="notes"><span class="nav-icon">📝</span>Notes</button><button class="nav-item" data-tab="analytics"><span class="nav-icon">📊</span>Stats</button></nav>
+<nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" data-tab="budget"><span class="nav-icon">▣</span>Budget</button><button class="nav-item" data-tab="notes"><span class="nav-icon">📝</span>Notes</button><button class="nav-item" data-tab="analytics"><span class="nav-icon">📊</span>Stats</button><button class="nav-item" data-tab="spending"><span class="nav-icon">💸</span>Spending</button></nav>
 <input type="file" id="restoreInput" class="field-hidden" accept="application/json,.json">
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <!-- Money box creation -->
@@ -115,7 +152,7 @@ function syncHeader(d){$('globalBalance').innerHTML=`<span class="dot"></span>${
 function groupFor(t){if(t.categoryGroup)return t.categoryGroup;const text=String(t.category||'').trim();if(text==='Custom'||!KNOWN_CATEGORIES.has(text))return 'Custom';return text;}
 function subFor(t){return t.subcategory==='Other'&&t.customSubcategory?t.customSubcategory:(t.subcategory||'');}
 function displayCat(t){const g=groupFor(t);return g==='Custom'?(t.customCategory||t.category||'Custom'):(t.category||g);}
-function setTab(tab){document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false');});document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===tab+'Section'));if(tab==='analytics')renderStats();window.scrollTo({top:0,behavior:'instant'});}
+function setTab(tab){document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false');});document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===tab+'Section'));if(tab==='analytics')renderStats();if(tab==='spending')renderSpending();window.scrollTo({top:0,behavior:'instant'});}
 document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
 let expandedBoxes=new Set();
 function renderBudget(){const d=loadData(),container=$('boxesContainer');$('boxCount').textContent=`${d.boxes.length} box${d.boxes.length===1?'':'es'}`;syncHeader(d);
@@ -167,6 +204,116 @@ function drawCategories(filtered){const cat=new Map();filtered.filter(e=>e.type=
  const size=216,r=69,circ=2*Math.PI*r;let used=0;let circles=`<circle cx="108" cy="108" r="69" stroke="#eff3f8" stroke-width="29" fill="none"/>`;entries.forEach((e,i)=>{const fraction=e[1]/total;circles+=`<circle cx="108" cy="108" r="69" fill="none" stroke="${PALETTE[i%PALETTE.length]}" stroke-width="29" stroke-dasharray="${fraction*circ} ${circ}" stroke-dashoffset="${-used*circ}" transform="rotate(-90 108 108)"/>`;used+=fraction;});const labels=`<text x="108" y="99" text-anchor="middle" font-size="12" fill="#7a879d" font-weight="700">EXPENSES</text><text x="108" y="118" text-anchor="middle" font-size="20" fill="#162039" font-weight="850">${esc(compact(total))}</text>`;$('categoryLegend').innerHTML=entries.map((e,i)=>`<div class="legend-row"><span class="legend-dot" style="background:${PALETTE[i%PALETTE.length]}"></span><span class="legend-name">${esc(e[0])} <span style="color:#98a3b2">${(e[1]/total*100).toFixed(1)}%</span></span><strong class="legend-value">${money(e[1])}</strong><div class="mini-progress"><span style="width:${e[1]/total*100}%;background:${PALETTE[i%PALETTE.length]}"></span></div></div>`).join('');return `<div style="max-width:270px;margin:0 auto">${svgContainer(circles+labels,216,216)}</div>`;}
 function renderStats(){const d=loadData(),events=eventsFrom(d),b=bounds(currentPeriod,events),per=periodEvents(events,b),inc=per.filter(e=>e.type==='add').reduce((s,e)=>s+e.amount,0),exp=per.filter(e=>e.type==='deduct').reduce((s,e)=>s+e.amount,0),flow=inc-exp;const periodLabel=currentPeriod==='week'?'this week':currentPeriod==='month'?'this month':'all time';$('periodDescription').textContent=b.title;$('statsGrid').innerHTML=`<div class="stat-card"><div class="stat-value" style="color:var(--blue)">${money(allBalance(d))}</div><div class="stat-label">Current total balance</div></div><div class="stat-card"><div class="stat-value" style="color:var(--green)">${money(inc)}</div><div class="stat-label">Income · ${periodLabel}</div></div><div class="stat-card"><div class="stat-value" style="color:var(--red)">${money(exp)}</div><div class="stat-label">Expenses · ${periodLabel}</div></div><div class="stat-card"><div class="stat-value" style="color:${flow>=0?'var(--blue)':'var(--red)'}">${money(flow)}</div><div class="stat-label">Net cash flow · ${periodLabel}</div></div>`;
  $('trendChart').innerHTML=drawTrend(events,currentPeriod,b);$('barChart').innerHTML=drawBar(events,currentPeriod,b);$('categoryChart').innerHTML=drawCategories(per);$('trendCaption').textContent=`Balance carried forward from earlier periods · ${b.title}`;$('barCaption').textContent=`Money in vs money out · ${b.title}`;const count=per.filter(e=>!e.initial).length;const spend=per.filter(e=>e.type==='deduct').reduce((s,e)=>s+e.amount,0);const topCat=[...per.filter(e=>e.type==='deduct').reduce((m,e)=>(m.set(e.category,(m.get(e.category)||0)+e.amount),m),new Map())].sort((a,b)=>b[1]-a[1])[0];$('insights').innerHTML=`<h3>💡 Quick insights</h3><p><strong>${count}</strong> add/deduct entries in the selected period.</p><p>Income minus expenses: <strong>${money(flow)}</strong>.</p>${topCat?`<p>Largest expense category: <strong>${esc(topCat[0])}</strong> (${money(topCat[1])}).</p>`:''}<p>Money boxes: <strong>${d.boxes.length}</strong>. Total recorded expenses this period: <strong>${money(spend)}</strong>.</p>`;}
+// Spending explorer: reads existing saved transactions only (never changes their format or values).
+let spendingShowAll=false;
+const SPENDING_ALL='__all__';
+function spendingEntries(){
+  const out=[];
+  for(const b of loadData().boxes){
+    for(const t of (b.transactions||[])){
+      if(t.type!=='deduct')continue; // Do not count income or the initial money-box amount.
+      const amount=Number(t.amount);
+      if(!Number.isFinite(amount)||amount<=0)continue;
+      out.push({amount,category:String(displayCat(t)||'Other').trim()||'Other',subcategory:String(subFor(t)||'Uncategorised').trim()||'Uncategorised',date:dateOf(t.dateTime||t.createdAt),description:t.description||'',box:b.name||'Money Box',id:t.id||''});
+    }
+  }
+  return out;
+}
+function spendingOptions(select,allLabel,values){
+  const wanted=select.value;
+  select.innerHTML=`<option value="${SPENDING_ALL}">${esc(allLabel)}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  select.value=values.includes(wanted)?wanted:SPENDING_ALL;
+}
+function spendingCategoryOptions(entries){
+  const extra=[...new Set(entries.map(e=>e.category))].filter(c=>!Object.hasOwn(DEDUCT_CATEGORIES,c)).sort((a,b)=>a.localeCompare(b));
+  spendingOptions($('spendingCategory'),'All Categories',[...Object.keys(DEDUCT_CATEGORIES),...extra]);
+}
+function spendingSubOptions(entries){
+  const selected=$('spendingCategory').value;
+  const known=selected===SPENDING_ALL?[]:(DEDUCT_CATEGORIES[selected]||[]);
+  const actual=entries.filter(e=>selected===SPENDING_ALL||e.category===selected).map(e=>e.subcategory);
+  const values=[...new Set([...known,...actual])].sort((a,b)=>a.localeCompare(b));
+  spendingOptions($('spendingSubcategory'),'All Subcategories',values);
+}
+function spendingLocalDate(s){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return null;
+  const [y,m,d]=s.split('-').map(Number),v=new Date(y,m-1,d);
+  return v.getFullYear()===y&&v.getMonth()===m-1&&v.getDate()===d?v:null;
+}
+function spendingBounds(period){
+  const now=new Date(),today=startOfDay(now),tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);
+  const week=new Date(today);week.setDate(week.getDate()-((week.getDay()+6)%7));
+  const month=new Date(now.getFullYear(),now.getMonth(),1);
+  const yr=new Date(now.getFullYear(),0,1);
+  let start=null,end=null,title='All recorded dates';
+  switch(period){
+    case 'today':start=today;end=tomorrow;title='Today';break;
+    case 'week':start=week;end=new Date(week);end.setDate(end.getDate()+7);title='This week · Monday–Sunday';break;
+    case 'lastWeek':end=week;start=new Date(week);start.setDate(start.getDate()-7);title='Last week · Monday–Sunday';break;
+    case 'month':start=month;end=new Date(now.getFullYear(),now.getMonth()+1,1);title='This calendar month';break;
+    case 'lastMonth':end=month;start=new Date(now.getFullYear(),now.getMonth()-1,1);title='Previous calendar month';break;
+    case 'last7':start=new Date(today);start.setDate(start.getDate()-6);end=tomorrow;title='Last 7 calendar days (including today)';break;
+    case 'last30':start=new Date(today);start.setDate(start.getDate()-29);end=tomorrow;title='Last 30 calendar days (including today)';break;
+    case 'year':start=yr;end=new Date(now.getFullYear()+1,0,1);title='This calendar year';break;
+    case 'custom':{
+      const from=spendingLocalDate($('spendingDateFrom').value),to=spendingLocalDate($('spendingDateTo').value);
+      if(!from||!to)return {error:'Select both From and To dates to see this range.'};
+      if(from>to)return {error:'The From date must not be after the To date.'};
+      start=from;end=new Date(to);end.setDate(end.getDate()+1);
+      title=`${from.toLocaleDateString('en-IN')} – ${to.toLocaleDateString('en-IN')}`;break;
+    }
+    default:title='All recorded dates';
+  }
+  return {start,end,title};
+}
+function spendingBreakdown(entries,keyFn){
+  const totals=new Map();
+  for(const e of entries){
+    const key=keyFn(e),v=totals.get(key)||{name:key,amount:0,count:0};
+    v.amount+=e.amount;v.count++;totals.set(key,v);
+  }
+  return [...totals.values()].sort((a,b)=>b.amount-a.amount||a.name.localeCompare(b.name));
+}
+function spendingRows(rows,total){
+  return rows.map((v,i)=>`<div class="legend-row"><span class="legend-dot" style="background:${PALETTE[i%PALETTE.length]}"></span><span class="legend-name">${esc(v.name)} <span style="color:#98a3b2">· ${v.count} entr${v.count===1?'y':'ies'}</span></span><strong class="legend-value">${money(v.amount)}</strong><div class="mini-progress"><span style="width:${total?v.amount/total*100:0}%;background:${PALETTE[i%PALETTE.length]}"></span></div></div>`).join('');
+}
+function renderSpending(){
+  const entries=spendingEntries();
+  spendingCategoryOptions(entries);
+  spendingSubOptions(entries);
+  $('spendingCustomRange').classList.toggle('field-hidden',$('spendingPeriod').value!=='custom');
+  const period=spendingBounds($('spendingPeriod').value),result=$('spendingResults');
+  if(period.error){result.innerHTML=`<div class="empty">${esc(period.error)}</div>`;return;}
+  const cat=$('spendingCategory').value,sub=$('spendingSubcategory').value;
+  const filtered=entries.filter(e=>(cat===SPENDING_ALL||e.category===cat)&&(sub===SPENDING_ALL||e.subcategory===sub)&&(!period.start||(e.date&&e.date>=period.start))&&(!period.end||(e.date&&e.date<period.end))).sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0));
+  const total=filtered.reduce((sum,e)=>sum+e.amount,0);
+  const cats=spendingBreakdown(filtered,e=>e.category);
+  const subs=spendingBreakdown(filtered,e=>cat===SPENDING_ALL?`${e.category} · ${e.subcategory}`:e.subcategory);
+  const shown=spendingShowAll?filtered:filtered.slice(0,15);
+  result.innerHTML=`
+    <div class="chart-box">
+      <h3>💸 Total Spending</h3><p class="chart-caption">${esc(period.title)} · All money boxes</p>
+      <div class="spending-total">${money(total)}</div>
+      <p class="spending-detail">${esc(cat===SPENDING_ALL?'All Categories':cat)} / ${esc(sub===SPENDING_ALL?'All Subcategories':sub)}</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value" style="color:var(--blue)">${filtered.length.toLocaleString('en-IN')}</div><div class="stat-label">Expense entries</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--red)">${money(filtered.length?total/filtered.length:0)}</div><div class="stat-label">Average per entry</div></div>
+      <div class="stat-card"><div class="stat-value">${cats.length}</div><div class="stat-label">Categories</div></div>
+      <div class="stat-card"><div class="stat-value">${subs.length}</div><div class="stat-label">Subcategories</div></div>
+    </div>
+    ${filtered.length?`
+      <div class="chart-box"><h3>📁 Spending by Category</h3><p class="chart-caption">Totals for the selected period and filters</p><div class="chart-legend">${spendingRows(cats,total)}</div></div>
+      <div class="chart-box"><h3>🧾 Spending by Subcategory</h3><p class="chart-caption">Each subcategory total, including custom entries</p><div class="chart-legend">${spendingRows(subs,total)}</div></div>
+      <div class="chart-box"><h3>📋 Matching Expenses · ${filtered.length}</h3><p class="chart-caption">Newest transactions first · amounts from all money boxes</p><div class="transactions" style="padding:0">${shown.map(e=>`<div class="tx deduct"><div class="tx-icon">−</div><div class="tx-info"><div class="tx-category">${esc(e.category)}</div><div class="tx-subcategory">${esc(e.subcategory)} · ${esc(e.box)}</div>${e.description?`<div class="tx-description">${esc(e.description)}</div>`:''}<div class="tx-date">${esc(displayDate(e.date))}</div></div><div class="tx-side"><span class="tx-amount">− ${money(e.amount)}</span></div></div>`).join('')}</div>${filtered.length>15?`<button class="show-more" id="spendingShowMore">${spendingShowAll?'Show fewer entries':`Show all ${filtered.length} entries`}</button>`:''}</div>
+    `:'<div class="empty">No spending found for these filters. Try another category, subcategory, or time period.</div>'}`;
+}
+$('spendingCategory').addEventListener('change',()=>{spendingShowAll=false;spendingSubOptions(spendingEntries());$('spendingSubcategory').value=SPENDING_ALL;renderSpending();});
+$('spendingSubcategory').addEventListener('change',()=>{spendingShowAll=false;renderSpending();});
+$('spendingPeriod').addEventListener('change',()=>{spendingShowAll=false;renderSpending();});
+$('spendingDateFrom').addEventListener('change',()=>{spendingShowAll=false;renderSpending();});
+$('spendingDateTo').addEventListener('change',()=>{spendingShowAll=false;renderSpending();});
+$('spendingResults').addEventListener('click',e=>{if(e.target.closest('#spendingShowMore')){spendingShowAll=!spendingShowAll;renderSpending();}});
 // Excel .xlsx generator, self-contained with no CDN, network connection, or external JS library.
 function xml(s){return String(s??'').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
 function colLetter(i){let out='';for(i++;i;i=Math.floor((i-1)/26))out=String.fromCharCode(65+(i-1)%26)+out;return out;}
